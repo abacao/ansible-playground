@@ -1,0 +1,22 @@
+# Created and maintained by Andre Bacao @ andre@bacao.pt
+#
+## [ temp files ]
+*.retry
+*.swp
+
+## [ folders ]
+.vagrant/
+.terraform/
+.kitchen/
+.idea/
+
+## [ files ]
+.DS_Store
+id_rsa
+id_rsa.pub
+*.exe
+
+## [ terraform ]
+terraform.tfvars
+*.tfstate
+*.tfstate.backup
