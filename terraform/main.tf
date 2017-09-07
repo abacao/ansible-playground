@@ -13,9 +13,18 @@ resource "aws_lightsail_key_pair" "lg_key_pair" {
   public_key = "${file("~/.ssh/id_rsa.pub")}"
 }
 
-# Create a new GitLab Lightsail Instance
-resource "aws_lightsail_instance" "instance" {
-  name                = "webserver-01"
+# Create a new Ansible Master Lightsail Instance
+resource "aws_lightsail_instance" "lightsail-01" {
+  name                = "ansible"
+  availability_zone   = "eu-west-2a"
+  bundle_id           = "nano_1_0"
+  blueprint_id        = "ubuntu_16_04"
+  key_pair_name       = "${aws_lightsail_key_pair.lg_key_pair.name}"
+}
+
+# Create a new Ansible Slave Lightsail Instance
+resource "aws_lightsail_instance" "lightsail-02" {
+  name                = "slave"
   availability_zone   = "eu-west-2a"
   bundle_id           = "nano_1_0"
   blueprint_id        = "ubuntu_16_04"

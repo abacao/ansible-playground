@@ -1,0 +1,1 @@
+slave ansible_host=35.177.3.160 ansible_port=22 ansible_user=ubuntu
