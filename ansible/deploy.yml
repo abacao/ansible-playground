@@ -2,14 +2,17 @@
 - hosts: all
   become: true
 
+  roles:
+    - common
+
   tasks:
     - name: Installs nginx web server
       apt: pkg=nginx state=installed update_cache=true
       notify:
       - start nginx
 
-    - name: Installs HTOP
-      apt: pkg=htop state=present update_cache=true
+    # - name: Installs HTOP
+    #   apt: pkg=htop state=present update_cache=true
 
 
   handlers:
