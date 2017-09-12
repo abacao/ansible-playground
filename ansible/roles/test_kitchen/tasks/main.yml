@@ -1,0 +1,34 @@
+vars:
+  ansible_key: 'AAAAAAAAAAAAAAAAAAAAAAAA'
+  ansible_token: 'skjsdakjhdkjsahjkadhklakshndlkhqwldhqkwjdh'
+
+- name: Install package ruby-all-dev
+  apt: pkg=ruby-all-dev state=installed update_cache=true
+
+- name: Install package ruby-bundler
+  apt: pkg=ruby-bundler state=installed update_cache=true
+
+- name: Install package build-essential
+  apt: pkg=build-essential state=installed update_cache=true
+
+#Because ansible is not updated in ubuntu repos
+
+- name: Install package python-pip
+  apt: pkg=python-pip state=installed update_cache=true
+
+- name: Install package ansible
+  apt: pkg=ansible state=installed update_cache=true
+
+- name: Copy files Pub Key:
+  copy:
+    src: ~/.ssh/id_rsa.pub
+    dest: ~/.ssh/id_rsa.pub
+    mode: 0644
+    backup: yes
+
+- name: Copy files AWS Credentials:
+  template:
+    src: aws_credentials
+    dest: ~/.aws/credentials
+    mode: 0700
+    backup: yes
