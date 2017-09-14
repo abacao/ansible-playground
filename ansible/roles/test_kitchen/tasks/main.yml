@@ -56,6 +56,6 @@
     dest: "{{ item.dest }}"
     mode: 0644
     backup: yes
-    with_items:
-      - { src: 'roles/test_kitchen/files/gemFile_template', dest: '/home/vagrant/ansible/GemFile' }
-      - { src: 'roles/test_kitchen/files/.kitchen.yml_template', dest: '/home/vagrant/ansible/.kitchen.yml' }
+  with_items:
+    - { src: 'roles/test_kitchen/files/gemFile_template', dest: '/home/vagrant/ansible/GemFile' }
+    - { src: 'roles/test_kitchen/files/.kitchen.yml_template', dest: '/home/vagrant/ansible/.kitchen.yml' }
