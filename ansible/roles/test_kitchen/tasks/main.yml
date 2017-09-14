@@ -1,9 +1,3 @@
-# vars:
-#   ansible_key: 'AAAAAAAAAAAAAAAAAAAAAAAA'
-#   ansible_token: 'skjsdakjhdkjsahjkadhklakshndlkhqwldhqkwjdh'
-
-# tasks:
-
 - name: Create directory if they don't exist
   file:
     path: "{{ item }}"
@@ -59,3 +53,13 @@
   with_items:
     - { src: 'roles/test_kitchen/files/gemFile_template', dest: '/home/vagrant/ansible/GemFile' }
     - { src: 'roles/test_kitchen/files/.kitchen.yml_template', dest: '/home/vagrant/ansible/.kitchen.yml' }
+
+# - name: Execute bundle install
+#   shell: bundle install >> /tmp/bundle_install.log
+
+# Installs gems from a specific Gemfile
+- name: Execute bundle install
+  bundler:
+    state: present
+    executable: /usr/bin/bundle
+    gemfile: /home/vagrant/ansible/Gemfile
