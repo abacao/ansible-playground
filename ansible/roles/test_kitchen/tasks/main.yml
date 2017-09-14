@@ -1,6 +1,21 @@
-vars:
-  ansible_key: 'AAAAAAAAAAAAAAAAAAAAAAAA'
-  ansible_token: 'skjsdakjhdkjsahjkadhklakshndlkhqwldhqkwjdh'
+# vars:
+#   ansible_key: 'AAAAAAAAAAAAAAAAAAAAAAAA'
+#   ansible_token: 'skjsdakjhdkjsahjkadhklakshndlkhqwldhqkwjdh'
+
+# tasks:
+
+- name: Create directory if they don't exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: 0775
+  with_items:
+    - /root/.ssh
+    - /root/.aws
+    - /home/vagrant/.ssh
+    - /home/vagrant/.aws
 
 - name: Install package ruby-all-dev
   apt: pkg=ruby-all-dev state=installed update_cache=true
@@ -19,16 +34,28 @@ vars:
 - name: Install package ansible
   apt: pkg=ansible state=installed update_cache=true
 
-- name: Copy files Pub Key:
+- name: Copy files Pub Key
   copy:
     src: ~/.ssh/id_rsa.pub
     dest: ~/.ssh/id_rsa.pub
     mode: 0644
     backup: yes
 
-- name: Copy files AWS Credentials:
+- name: Copy files AWS Credentials
   template:
-    src: aws_credentials
-    dest: ~/.aws/credentials
+    src: roles/test_kitchen/files/aws_credentials.j2
+    dest: /home/vagrant/.aws/credentials
+    owner: vagrant
+    group: vagrant
     mode: 0700
     backup: yes
+
+- name: Copy GemFile and kitchen yaml
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0644
+    backup: yes
+    with_items:
+      - { src: 'roles/test_kitchen/files/gemFile_template', dest: '/home/vagrant/ansible/GemFile' }
+      - { src: 'roles/test_kitchen/files/.kitchen.yml_template', dest: '/home/vagrant/ansible/.kitchen.yml' }

@@ -3,6 +3,7 @@
 ## [ temp files ]
 *.retry
 *.swp
+*.lock
 
 ## [ folders ]
 .vagrant/
@@ -15,6 +16,8 @@
 id_rsa
 id_rsa.pub
 *.exe
+GemFile
+.kitchen.yml
 
 ## [ terraform ]
 terraform.tfvars

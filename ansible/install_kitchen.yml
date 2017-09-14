@@ -10,7 +10,7 @@
 #
 
 ---
-- hosts: all
+- hosts: localhost
   become: true
 
   roles:
