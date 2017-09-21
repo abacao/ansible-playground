@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  become: true
+
+  roles:
+    - common #htop and tmux
+    - test_kitchen

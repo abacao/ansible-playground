@@ -1,5 +1,5 @@
 - name: Installs HTOP
   apt: pkg=htop state=present update_cache=true
 
-- name: Installs Vagrant
-  apt: pkg=vagrant state=present update_cache=true
+- name: Installs TMUX
+  apt: pkg=tmux state=present update_cache=true

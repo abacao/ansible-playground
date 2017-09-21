@@ -1,0 +1,65 @@
+- name: Create directory if they don't exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: 0775
+  with_items:
+    - /root/.ssh
+    - /root/.aws
+    - /home/vagrant/.ssh
+    - /home/vagrant/.aws
+
+- name: Install package ruby-all-dev
+  apt: pkg=ruby-all-dev state=installed update_cache=true
+
+- name: Install package ruby-bundler
+  apt: pkg=ruby-bundler state=installed update_cache=true
+
+- name: Install package build-essential
+  apt: pkg=build-essential state=installed update_cache=true
+
+#Because ansible is not updated in ubuntu repos
+
+- name: Install package python-pip
+  apt: pkg=python-pip state=installed update_cache=true
+
+- name: Install package ansible
+  apt: pkg=ansible state=installed update_cache=true
+
+- name: Copy files Pub Key
+  copy:
+    src: ~/.ssh/id_rsa.pub
+    dest: ~/.ssh/id_rsa.pub
+    mode: 0644
+    backup: yes
+
+- name: Copy files AWS Credentials
+  template:
+    src: roles/test_kitchen/files/aws_credentials.j2
+    dest: /home/vagrant/.aws/credentials
+    owner: vagrant
+    group: vagrant
+    mode: 0700
+    backup: yes
+
+- name: Copy GemFile and kitchen yaml
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0644
+    backup: yes
+  with_items:
+    - { src: 'roles/test_kitchen/files/gemFile_template', dest: '/home/vagrant/ansible/GemFile' }
+    - { src: 'roles/test_kitchen/files/.kitchen.yml_template', dest: '/home/vagrant/ansible/.kitchen.yml' }
+
+# - name: Execute bundle install
+#   shell: bundle install >> /tmp/bundle_install.log
+
+# Installs gems from a specific Gemfile
+- name: Execute bundle install
+  bundler:
+    state: present
+    executable: /usr/bin/bundle
+    gemfile: /home/vagrant/ansible/Gemfile
