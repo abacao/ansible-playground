@@ -1,18 +1,7 @@
-## Important commands in TestKitchen
-#
-# bundle install
-# bundle exec kitchen list
-# bundle exec kitchen create ubuntu-14
-# bundle exec kitchen login ubuntu-14
-# bundle exec kitchen verify ubuntu-14
-# bundle exec kitchen converge ubuntu-14
-# bundle exec kitchen destroy ubuntu-14
-#
-
 ---
 - hosts: localhost
   become: true
 
   roles:
-    - common #htop and vagrant to test
+    - common #htop and tmux
     - test_kitchen
