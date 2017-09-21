@@ -4,9 +4,8 @@
 ### Using Vagrant
 1. git clone https://github.com/abacao/ansible-playground.git
 2. cd ansible-playground/vagrant
-3. vagrant ssh
-4. cd ansible
-5. ansible-playbook install_kitchen.yml
+3. vagrant up
+4. vagrant ssh
 
 
 Now you can test one of the following commands:
@@ -30,7 +29,6 @@ bundle exec kitchen destroy ubuntu-14
   aws_secretkey  = "dummietokendummietokendummietokendummietoken"
   aws_region = "eu-west-2"
   ```
-
 3. ssh ubuntu@IP
 4. git clone https://github.com/abacao/ansible-playground.git
 5. cd ansible-playground/ansible
